@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from Backend.config import Telegram
+from Backend.config import Telegram, APP_NAME
 from Backend.helper.custom_filter import CustomFilters
 
 @Client.on_message(filters.command("help"))
@@ -15,7 +15,7 @@ async def help_command(client: Client, message: Message):
     else:
         text = (
             "<b>Bot Commands:</b>\n\n"
-            "/start - Get the Stremio Addon URL\n"
+            f"/start - Get the {APP_NAME} Addon URL\n"
             "/help - Show this message"
         )
         

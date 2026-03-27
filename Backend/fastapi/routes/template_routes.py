@@ -9,6 +9,7 @@ from Backend.helper.pyro import get_readable_time
 from Backend import StartTime, __version__
 import time
 from Backend.helper.custom_dl import ACTIVE_STREAMS, RECENT_STREAMS
+from Backend.config import APP_NAME
 
 templates = Jinja2Templates(directory="Backend/fastapi/templates")
 
@@ -22,7 +23,8 @@ async def admin_dashboard_page(request: Request, _: bool = Depends(require_auth)
         "theme": theme,
         "themes": get_all_themes(),
         "current_theme": theme_name,
-        "current_user": current_user
+        "current_user": current_user,
+        "APP_NAME": APP_NAME
     })
 
 async def login_page(request: Request):
@@ -36,7 +38,8 @@ async def login_page(request: Request):
         "request": request,
         "theme": theme,
         "themes": get_all_themes(),
-        "current_theme": theme_name
+        "current_theme": theme_name,
+        "APP_NAME": APP_NAME
     })
 
 async def login_post(request: Request, username: str = Form(...), password: str = Form(...)):
@@ -52,7 +55,8 @@ async def login_post(request: Request, username: str = Form(...), password: str 
             "theme": theme,
             "themes": get_all_themes(),
             "current_theme": theme_name,
-            "error": "Invalid credentials"
+            "error": "Invalid credentials",
+            "APP_NAME": APP_NAME
         })
 
 async def logout(request: Request):
@@ -154,7 +158,8 @@ async def dashboard_page(request: Request, _: bool = Depends(require_auth)):
         "current_theme": theme_name,
         "current_user": current_user,
         "system_stats": system_stats,
-        "api_tokens": api_tokens
+        "api_tokens": api_tokens,
+        "APP_NAME": APP_NAME
     })
 
 
@@ -169,7 +174,8 @@ async def media_management_page(request: Request, media_type: str = "movie", _: 
         "themes": get_all_themes(),
         "current_theme": theme_name,
         "current_user": current_user,
-        "media_type": media_type
+        "media_type": media_type,
+        "APP_NAME": APP_NAME
     })
 
 async def edit_media_page(request: Request, tmdb_id: int, db_index: int, media_type: str, _: bool = Depends(require_auth)):
@@ -193,7 +199,8 @@ async def edit_media_page(request: Request, tmdb_id: int, db_index: int, media_t
         "tmdb_id": tmdb_id,
         "db_index": db_index,
         "media_type": media_type,
-        "media_details": media_details
+        "media_details": media_details,
+        "APP_NAME": APP_NAME
     })
 
 async def public_status_page(request: Request):
@@ -225,7 +232,8 @@ async def public_status_page(request: Request):
         "themes": get_all_themes(),
         "current_theme": theme_name,
         "stats": public_stats,
-        "is_authenticated": is_authenticated(request)
+        "is_authenticated": is_authenticated(request),
+        "APP_NAME": APP_NAME
     })
 
 async def stremio_guide_page(request: Request):
@@ -237,7 +245,8 @@ async def stremio_guide_page(request: Request):
         "theme": theme,
         "themes": get_all_themes(),
         "current_theme": theme_name,
-        "is_authenticated": is_authenticated(request)
+        "is_authenticated": is_authenticated(request),
+        "APP_NAME": APP_NAME
     })
 
 async def admin_subscriptions_page(request: Request, _: bool = Depends(require_auth)):
@@ -250,7 +259,8 @@ async def admin_subscriptions_page(request: Request, _: bool = Depends(require_a
         "theme": theme,
         "themes": get_all_themes(),
         "current_theme": theme_name,
-        "current_user": current_user
+        "current_user": current_user,
+        "APP_NAME": APP_NAME
     })
 
 
@@ -265,5 +275,6 @@ async def admin_access_page(request: Request, _: bool = Depends(require_auth)):
         "themes": get_all_themes(),
         "current_theme": theme_name,
         "current_user": current_user,
+        "APP_NAME": APP_NAME
     })
 

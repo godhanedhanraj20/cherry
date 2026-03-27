@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from typing import Optional
 from urllib.parse import unquote
-from Backend.config import Telegram
+from Backend.config import Telegram, APP_NAME
 from Backend import db, __version__
 import PTN
 from datetime import datetime, timezone, timedelta
@@ -10,7 +10,7 @@ from Backend.fastapi.security.tokens import verify_token
 
 # --- Configuration ---
 BASE_URL = Telegram.BASE_URL
-ADDON_NAME = "Telegram"
+ADDON_NAME = APP_NAME
 ADDON_VERSION = __version__
 PAGE_SIZE = 15
 
@@ -64,7 +64,7 @@ def format_stream_details(filename: str, quality: str, size: str) -> tuple[str, 
     try:
         parsed = PTN.parse(filename)
     except Exception:
-        return (f"Telegram {quality}", f"📁 {filename}\n💾 {size}")
+        return (f"{APP_NAME} {quality}", f"📁 {filename}\n💾 {size}")
 
     codec_parts = []
     if parsed.get("codec"):
@@ -80,7 +80,7 @@ def format_stream_details(filename: str, quality: str, size: str) -> tuple[str, 
 
     resolution = parsed.get("resolution", quality)
     quality_type = parsed.get("quality", "")
-    stream_name = f"Telegram {resolution} {quality_type}".strip()
+    stream_name = f"{APP_NAME} {resolution} {quality_type}".strip()
 
     stream_title_parts = [
         f"📁 {filename}",
@@ -161,7 +161,7 @@ async def get_manifest(token: str, token_data: dict = Depends(verify_token)):
 
     # Build dynamic name/description/version with subscription info
     addon_name = ADDON_NAME
-    addon_desc = "Streams movies and series from your Telegram."
+    addon_desc = f"Streams movies and series from your {APP_NAME}."
     addon_version = ADDON_VERSION
     expiry_obj = None
 
@@ -178,7 +178,7 @@ async def get_manifest(token: str, token_data: dict = Depends(verify_token)):
                         addon_name = f"{ADDON_NAME} — Expires {expiry_str}"
                         addon_desc = (
                             f"📅 Subscription active until {expiry_str}.\n"
-                            f"Streams movies and series from your Telegram."
+                            f"Streams movies and series from your {APP_NAME}."
                         )
                         # Encode expiry epoch (low 16 bits, hex) into version so
                         # Stremio detects a change when subscription is updated.
@@ -186,7 +186,7 @@ async def get_manifest(token: str, token_data: dict = Depends(verify_token)):
                         addon_version = f"{ADDON_VERSION}-{epoch_tag}"
                     else:
                         addon_name = f"{ADDON_NAME} — Active"
-                        addon_desc = "✅ Subscription active.\nStreams movies and series from your Telegram."
+                        addon_desc = f"✅ Subscription active.\nStreams movies and series from your {APP_NAME}."
             except Exception:
                 pass  # Fallback to defaults on error
 
@@ -265,7 +265,7 @@ async def configure_addon(token: str):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Update Telegram Stremio Addon</title>
+  <title>Update {APP_NAME} Addon</title>
   <style>
     * {{ box-sizing: border-box; margin: 0; padding: 0; }}
     body {{
@@ -329,7 +329,7 @@ async def configure_addon(token: str):
 <body>
   <div class="card">
     <div class="logo">🎬</div>
-    <h1>Telegram Stremio Addon</h1>
+    <h1>{APP_NAME} Addon</h1>
     <p class="sub-title">Click the button below to install or update your addon in Stremio.</p>
 
     <div class="info-row">
@@ -507,8 +507,8 @@ async def get_streams(
         return {
             "streams": [
                 {
-                    "name": "🚫 Subscription Expired",
-                    "title": "Your subscription has expired.\nRenew via the bot to continue watching.",
+                    "name": f"🚫 {APP_NAME} Subscription Expired",
+                    "title": f"Your {APP_NAME} subscription has expired.\nRenew via the bot to continue watching.",
                     "url": _TG.SUBSCRIPTION_URL
                 }
             ]

@@ -5,7 +5,7 @@
 
 
 <p align="center">
-  A powerful, self-hosted <b>Telegram Stremio Media Server</b> built with <b>FastAPI</b>, <b>MongoDB</b>, and <b>PyroFork</b> — seamlessly integrated with <b>Stremio</b> for automated media streaming and discovery.
+  A powerful, self-hosted <b>StremioPlay Media Server</b> built with <b>FastAPI</b>, <b>MongoDB</b>, and <b>PyroFork</b> — seamlessly integrated with <b>Stremio</b> for automated media streaming and discovery.
 </p>
 
 <p align="center">
@@ -62,7 +62,7 @@
 
 # 🚀 Introduction
 
-This project is a **next-generation Telegram Stremio Media Server** that allows you to **stream your Telegram files directly through Stremio**, without any third-party dependencies or file expiration issues. It’s designed for **speed, scalability, and reliability**, making it ideal for both personal and community-based media hosting.
+This project is a **next-generation StremioPlay Media Server** that allows you to **stream your Telegram files directly through Stremio**, without any third-party dependencies or file expiration issues. It’s designed for **speed, scalability, and reliability**, making it ideal for both personal and community-based media hosting.
 
 
 ## ✨ Key Features
@@ -256,7 +256,7 @@ All environment variables for this project are defined in the `config.env` file.
 | **`HELPER_BOT_TOKEN`** | **Secondary bot token** used to assist the main bot with tasks like deleting, editing, or managing. |
 | **`OWNER_ID`** | Your **Telegram user ID**. This ID has full administrative access. |
 | **`REPLACE_MODE`** | When `true`, new files replace existing files of the same quality. When `false`, multiple files of the same quality are allowed. |
-| **`HIDE_CATALOG`** | When `true`, the default Telegram Stremio Catalog is hidden, and streams only show in the Cinemata catalog (i.e., Cinemata addon is mandatory). Default is `false`. |
+| **`HIDE_CATALOG`** | When `true`, the default StremioPlay Catalog is hidden, and streams only show in the Cinemata catalog (i.e., Cinemata addon is mandatory). Default is `false`. |
 | **`PARALLEL`** | Controls the number of parallel chunks/connections used during streaming. Higher values can improve download speed and reduce buffering but will increase CPU, memory usage, and Telegram API load. Default is `1` (for this you should have more Multi Tokens). |
 | **`PRE_FETCH`** | Enables prefetching of upcoming stream chunks before they are requested by the player. Higher values allow smoother playback and faster seeking at the cost of extra bandwidth and memory usage. Default is `1` (for this you should have more Multi Tokens). |
 
@@ -331,7 +331,7 @@ To avoid this, you can use **MULTI_TOKEN** system:
 
 # 💳 Subscription Management
 
-The Subscription Management system allows you to **monetise access** to your Telegram Stremio server. When enabled, users must have an active subscription to stream content.
+The Subscription Management system allows you to **monetise access** to your StremioPlay server. When enabled, users must have an active subscription to stream content.
 
 ## 📋 Subscription Plans
 
@@ -421,9 +421,9 @@ The addon manifest updates dynamically per user:
 
 | Scenario | Addon Name | Description |
 | :--- | :--- | :--- |
-| Active, has expiry | `Telegram — Expires 28 Mar 2026` | 📅 Subscription active until 28 Mar 2026 |
-| Active, no expiry | `Telegram — Active` | ✅ Subscription active |
-| Default (no subscription mode) | `Telegram` | Standard description |
+| Active, has expiry | `StremioPlay — Expires 28 Mar 2026` | 📅 Subscription active until 28 Mar 2026 |
+| Active, no expiry | `StremioPlay — Active` | ✅ Subscription active |
+| Default (no subscription mode) | `StremioPlay` | Standard description |
 
 The manifest `version` encodes the expiry date — when an admin extends or revokes a subscription, the version changes and Stremio detects an update.
 
@@ -460,7 +460,7 @@ The ⚙️ gear icon in Stremio opens this page so users can reinstall after an 
 
 # 🚀 Deployment Guide
 
-This guide will help you deploy your **Telegram Stremio Media Server** using either Heroku or a VPS with Docker.
+This guide will help you deploy your **StremioPlay Media Server** using either Heroku or a VPS with Docker.
 
 ## ✅ Recommended Prerequisites
 
@@ -484,14 +484,14 @@ Follow the instructions provided in the Google Colab Tool to deploy on Heroku.
 
 ## 🐳 VPS Guide
 
-This section explains how to deploy your **Telegram Stremio Media Server** on a VPS using **Docker Compose (recommended)** or **Docker**.
+This section explains how to deploy your **StremioPlay Media Server** on a VPS using **Docker Compose (recommended)** or **Docker**.
 
 
 ### 1️⃣ Step 1: Clone & Configure the Project
 
 ```bash
-git clone https://github.com/weebzone/Telegram-Stremio
-cd Telegram-Stremio
+git clone https://github.com/weebzone/StremioPlay
+cd StremioPlay
 mv sample_config.env config.env
 nano config.env
 ```
@@ -547,13 +547,13 @@ If you prefer not to use Docker Compose, you can manually build and run the cont
 #### 🧩 Build the Image
 
 ```bash
-docker build -t telegram-stremio .
+docker build -t stremioplay .
 ```
 
 #### 🚀 Run the Container
 
 ```bash
-docker run -d -p 8000:8000 telegram-stremio
+docker run -d -p 8000:8000 stremioplay
 ```
 
 Your server should now be running at:
@@ -641,12 +641,12 @@ Download Stremio for your device:
 
 ## ⚙️ Optional: Remove Cinemeta
 
-If you want to use **only** your **Telegram Stremio Media Server addon** for metadata and streaming, follow this guide to remove the default `Cinemeta` addon.
+If you want to use **only** your **StremioPlay Media Server addon** for metadata and streaming, follow this guide to remove the default `Cinemeta` addon.
 
 ### 1️⃣ Step 1: Uninstall Other Addons
 
 1.  Go to the **Addon Section** in the Stremio App.
-2.  **Uninstall all addons** except your Telegram Stremio Media Server.
+2.  **Uninstall all addons** except your StremioPlay Media Server.
 3.  Attempt to remove **Cinemeta**. If Stremio prevents it, proceed to Step 2.
 
 ### 2️⃣ Step 2: Remove “Cinemeta” Protection

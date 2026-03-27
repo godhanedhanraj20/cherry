@@ -7,6 +7,7 @@ from Backend.helper.pyro import get_readable_time
 from Backend.pyrofork.bot import multi_clients, StreamBot
 from Backend.helper.custom_dl import run_speed_test, _speed_test_single_client
 from time import time
+from Backend.config import APP_NAME
 
 
 # --- API Routes for System Stats ---
@@ -610,7 +611,7 @@ async def get_all_tokens_api() -> dict:
             # Fall back to the name stored on the token itself (set at creation time)
             if token_name:
                 return token_name
-            return f"User {user_id}" if user_id else "Telegram User"
+            return f"User {user_id}" if user_id else f"{APP_NAME} User"
 
         def build_entry(user_id, user, token_doc):
             """Build a unified access entry from optional user + token records."""

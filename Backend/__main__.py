@@ -12,12 +12,13 @@ from Backend.pyrofork.bot import Helper, StreamBot
 from Backend.pyrofork.clients import initialize_clients
 from Backend.helper.link_checker import DeadLinkChecker
 from Backend.fastapi.main import app
+from Backend.config import APP_NAME
 
 loop = get_event_loop()
 
 async def start_services():
     try:
-        LOGGER.info(f"Initializing Telegram-Stremio v-{__version__}")
+        LOGGER.info(f"Initializing {APP_NAME} v-{__version__}")
         await asleep(1.2)
         
         await db.connect()
@@ -40,7 +41,7 @@ async def start_services():
         await setup_bot_commands(StreamBot)
         await asleep(2)
 
-        LOGGER.info('Initializing Telegram-Stremio Web Server...')
+        LOGGER.info(f'Initializing {APP_NAME} Web Server...')
         await restart_notification()
         loop.create_task(server.serve())
         loop.create_task(ping())
@@ -56,7 +57,7 @@ async def start_services():
             loop.create_task(subscription_checker_loop(StreamBot))
             LOGGER.info("Subscription Checker Task Started.")
         
-        LOGGER.info("Telegram-Stremio Started Successfully!")
+        LOGGER.info(f"{APP_NAME} Started Successfully!")
         await idle()
     except Exception:
         LOGGER.error("Error during startup:\n" + format_exc())
