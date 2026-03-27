@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard - Telegram Stremio{% endblock %}
+{% block title %}Dashboard - {{ APP_NAME }}{% endblock %}
 
 {% block content %}
 <div class="min-h-screen">
@@ -52,7 +52,7 @@
                                 }}</span>
                         </div>
                         <div class="flex justify-between items-center py-3 px-4 bg-gray-50 rounded-lg">
-                            <span class="font-medium theme-text-secondary">Telegram Bot</span>
+                            <span class="font-medium theme-text-secondary">{{ APP_NAME }} Bot</span>
                             <span id="sys-bot-name" class="text-primary font-semibold">{{ system_stats.telegram_bot or
                                 '@StreamBot'
                                 }}</span>

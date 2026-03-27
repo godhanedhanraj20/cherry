@@ -1,7 +1,7 @@
 services:
-  telegram-stremio:
+  stremioplay:
     build: .
-    container_name: tg_stremio  
+    container_name: stremioplay  
     ports:
       - "8000:8000"
     volumes:
