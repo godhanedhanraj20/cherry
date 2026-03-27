@@ -48,11 +48,6 @@ try:
 except Exception:
     pass
 
-@app.on_event("startup")
-async def _startup():
-    import asyncio
-    asyncio.create_task(decay_client_failures())
-
 # --- Include existing API routers ---
 app.include_router(stream_router)
 app.include_router(stremio_router)
