@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 
 CONFIG_ENV_PATH = path.join(path.dirname(path.dirname(__file__)), "config.env")
 
+APP_NAME = "StremioPlay"
+
 # Prefer runtime DATABASE (e.g. Heroku Config Vars); only rely on config.env
 # for DATABASE when it is not set at runtime.
 runtime_database = getenv("DATABASE")

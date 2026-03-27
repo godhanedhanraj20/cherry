@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-from Backend.config import Telegram
+from Backend.config import Telegram, APP_NAME
 from Backend import db
 from datetime import datetime, timedelta
 import asyncio
@@ -278,7 +278,7 @@ async def admin_review(client: Client, callback_query: CallbackQuery):
             )
             if addon_url:
                 success_text += (
-                    f"\n\n🎬 <b>Stremio Addon — Install Link:</b>\n"
+                    f"\n\n🎬 <b>{APP_NAME} Addon — Install Link:</b>\n"
                     f"<code>{addon_url}</code>\n\n"
                     f"Tap the link above → <b>Install</b> in Stremio to start watching!"
                 )

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Admin Dashboard - Telegram Stremio{% endblock %}
+{% block title %}Admin Dashboard - {{ APP_NAME }}{% endblock %}
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-text">
@@ -273,7 +273,7 @@
     }
 
     async function clearCache() {
-        if (!confirm("Are you sure you want to clear the Telegram FileId cache? This will force bots to re-fetch metadata on the next stream.")) return;
+        if (!confirm("Are you sure you want to clear the {{ APP_NAME }} FileId cache? This will force bots to re-fetch metadata on the next stream.")) return;
 
         try {
             const res = await fetch('/api/admin/clear-cache', { method: 'POST' });

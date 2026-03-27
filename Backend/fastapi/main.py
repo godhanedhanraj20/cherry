@@ -5,7 +5,8 @@ from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 from Backend import __version__
 from Backend.fastapi.security.credentials import require_auth
-from Backend.fastapi.routes.stream_routes import router as stream_router, decay_client_failures
+from Backend.fastapi.routes.stream_routes import router as stream_router
+from Backend.config import APP_NAME
 from Backend.fastapi.routes.stremio_routes import router as stremio_router
 from Backend.fastapi.routes.template_routes import (
     login_page, login_post, logout, set_theme, dashboard_page,
@@ -27,8 +28,8 @@ from Backend.fastapi.routes.api_routes import (
 )
 
 app = FastAPI(
-    title="Telegram Stremio Media Server",
-    description="A powerful, self-hosted Telegram Stremio Media Server built with FastAPI, MongoDB, and PyroFork seamlessly integrated with Stremio for automated media streaming and discovery.",
+    title=f"{APP_NAME} Media Server",
+    description=f"A powerful, self-hosted {APP_NAME} Media Server built with FastAPI, MongoDB, and PyroFork seamlessly integrated with Stremio for automated media streaming and discovery.",
     version=__version__
 )
 
@@ -46,11 +47,6 @@ try:
     app.mount("/static", StaticFiles(directory="Backend/fastapi/static"), name="static")
 except Exception:
     pass
-
-@app.on_event("startup")
-async def _startup():
-    import asyncio
-    asyncio.create_task(decay_client_failures())
 
 # --- Include existing API routers ---
 app.include_router(stream_router)

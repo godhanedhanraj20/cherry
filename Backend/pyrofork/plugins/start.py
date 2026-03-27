@@ -1,7 +1,7 @@
 from pyrogram import filters, Client, enums
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from Backend.helper.custom_filter import CustomFilters
-from Backend.config import Telegram
+from Backend.config import Telegram, APP_NAME
 from Backend import db
 from datetime import datetime
 
@@ -30,9 +30,9 @@ async def send_start_message(client: Client, message: Message):
                 print(f"DEBUG: Error ensuring token for free user: {e}")
                 
             await message.reply_text(
-                '🎉 <b>Welcome to the Telegram Stremio Media Server!</b>\n\n'
+                f'🎉 <b>Welcome to the {APP_NAME}!</b>\n\n'
                 'Here is your personal Stremio Addon link:\n\n'
-                '🎬 <b>Stremio Addon — Install Link:</b>\n'
+                f'🎬 <b>{APP_NAME} Addon — Install Link:</b>\n'
                 f'<code>{addon_url}</code>\n\n'
                 'Tap the link above → <b>Install</b> in Stremio to start watching!',
                 quote=True,
@@ -56,7 +56,7 @@ async def send_start_message(client: Client, message: Message):
             plans = await db.get_subscription_plans()
             if not plans:
                 return await message.reply_text(
-                    '<b>Welcome to the Telegram Stremio Private Group!</b>\n\n'
+                    f'<b>Welcome to the {APP_NAME} Private Group!</b>\n\n'
                     'Currently, no subscription plans are set up. Please contact the administrator.',
                     quote=True,
                     parse_mode=enums.ParseMode.HTML
@@ -69,8 +69,8 @@ async def send_start_message(client: Client, message: Message):
             keyboard = InlineKeyboardMarkup(keyboard_buttons)
             
             return await message.reply_text(
-                '<b>Welcome to the Telegram Stremio Private Group!</b>\n\n'
-                'Access to this bot and the Stremio Addon requires an active subscription.\n'
+                f'<b>Welcome to the {APP_NAME} Private Group!</b>\n\n'
+                'Access to this bot and the addon requires an active subscription.\n'
                 'Please select a subscription plan below to continue:',
                 reply_markup=keyboard,
                 quote=True,
@@ -86,9 +86,9 @@ async def send_start_message(client: Client, message: Message):
             addon_url = f"{base_url}/stremio/{token_str}/manifest.json"
 
         await message.reply_text(
-            '🎉 <b>Welcome back to the Telegram Stremio Subscription Manager!</b>\n\n'
+            f'🎉 <b>Welcome back to the {APP_NAME} Subscription Manager!</b>\n\n'
             'Your subscription is active. Here is your personal addon link:\n\n'
-            '🎬 <b>Stremio Addon — Install Link:</b>\n'
+            f'🎬 <b>{APP_NAME} Addon — Install Link:</b>\n'
             f'<code>{addon_url}</code>\n\n'
             'Tap the link above → <b>Install</b> in Stremio to start watching!',
             quote=True,
